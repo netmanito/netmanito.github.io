@@ -1,5 +1,5 @@
 ---
-layout: archive
+layout: post
 title: Some Linux Tips
 date: 2012-10-09 13:23
 categories: jekyll update
