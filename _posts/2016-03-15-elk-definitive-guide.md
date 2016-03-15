@@ -1,8 +1,8 @@
 ---
 layout: post
-title: ELK, the definitive guide, version 0
+title: ELK the definitive guide
 date: 2016-03-15
-categories: jekyll update
+categories: jekyll elasticsesarch update
 ---
 # INSTALL LOGSTASH-ELASTICSEARCH-KIBANA + LOGSTASH FORWARDERS
 
