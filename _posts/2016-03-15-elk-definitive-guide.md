@@ -1,3 +1,9 @@
+---
+layout: post
+title: ELK, the definitive guide, version 0
+date: 2016-03-15
+categories: jekyll update
+---
 # INSTALL LOGSTASH-ELASTICSEARCH-KIBANA + LOGSTASH FORWARDERS
 
 In this tutorial, we will go over the installation of the Elasticsearch ELK Stack on CentOS 7-that is, Elasticsearch 1.4.4, Logstash 1.5.0, and Kibana 4. We will also show you how to configure it to gather and visualize the syslogs of your systems in a centralized location. Logstash is an open source tool for collecting, parsing, and storing logs for future use. Kibana 4 is a web interface that can be used to search and view the logs that Logstash has indexed. Both of these tools are based on Elasticsearch.
