@@ -1,6 +1,6 @@
 # External gems
 gems:
-#  - jekyll-archives # Sorry, not GitHub pages friendly!
+  - jekyll-archives # Sorry, not GitHub pages friendly!
   - jekyll-sitemap
 
 exclude:
