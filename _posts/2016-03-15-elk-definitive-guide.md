@@ -18,6 +18,7 @@ Our Logstash / Kibana setup has four main components:
 
 *Logstash Forwarder: Installed on servers that will send their logs to Logstash, Logstash Forwarder serves as a log forwarding agent that utilizes the lumberjack networking protocol to communicate with Logstash*
 
+Note: This tutorial can be applied to install versions 2.X from elasticsearch and logstash, just keep in mind that there might be little changes, checkout [elasitc.co](https://elastic.co) to see changes.
 
 
 ## Install needed elements
@@ -498,6 +499,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 
 ### 01-input.cfg
 
+Input examples for lumberjack and redis.
+
 	###########################################################
 	input {
 	  lumberjack {
@@ -534,20 +537,27 @@ Update: we've added a new Logstash input service to separate live and stage envi
 
 #### 05-mimov.cfg
 
+This parser uses grok and a pattern file detailed below
+
 	######################################################
 	filter {
 	  if [type] == "mimov" {
 	    grok {
-	      patterns_dir => "/etc/logstash/conf.d/patterns" 
+	    # grok plugin
+	    # %{MIMOV_MSG}=%{MIMOV_NOTIFY} is defined in /etc/logstash/conf.d/patterns/mimov
+	    
+	     patterns_dir => "/etc/logstash/conf.d/patterns" 
 	     match => { "message" => "%{MIMOV_MSG}=%{MIMOV_NOTIFY}" 
 	                }
-	      remove_tag => [ "live" ]
+	    # we add a tag and remove unwanted fields, this optimices data storage
 	      add_tag => [ "mimov" ]
 	      remove_field => [ 	"message","DATA1","DATA2","DATA4","DATA6","DATA8","DATA9","DATA10","DATA11","DATA12"]
 	      }
 	  }
 	}
 	################################  
+	# this mutate replaces LOC and puts the word 'cycle'
+	
 	filter {
 	 if [type] == "mimov" and [alarmType] == "LOC" {
 	  mutate {
@@ -556,6 +566,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 	 }
 	}
 	################################  
+	# this mutate filter replaces NEW and LAS to match other inputs with same names as above
+	
 	filter {
 	 if [type] == "mimov" and [hasFix] == "NEW" {
 	  mutate {
@@ -568,6 +580,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 	  }
 	}
 	################################  
+	# we don't want anything incorrectly parsed so we drop it
+	
 	filter {
 	if "_grokparsefailure" in [tags] {
 	      drop { }
@@ -576,6 +590,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 	#############################################
 
 #### 10-oysta.cfg
+
+This example uses **XML** and **Grok** filters.
 
 	#############################################
 	filter {
@@ -676,6 +692,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 
 #### 12-mtc.cfg
 
+This is **json** plugin example
+
 	filter {
 	  if [type] == "mtc" {
 	######################################################
@@ -736,6 +754,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 
 #### 14-enest.cfg
 
+This example uses **grok** and **json**
+
 	#############################################
 	filter {
 	  if [type] == "enest" {
@@ -781,6 +801,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 
 #### 15-geoip.cfg
 
+The **geoip** plugin to manage locations.
+
 	################################ GEOIP 
 	filter {
 	if [latitude] and [longitude] {
@@ -811,6 +833,8 @@ Update: we've added a new Logstash input service to separate live and stage envi
 	#############################################
 
 ### OUTPUT
+
+Output example, basically elasticsearch, but remember you can output to many other things.
 
 #### 20-output.cfg
 
@@ -851,6 +875,7 @@ Update: we've added a new Logstash input service to separate live and stage envi
 	##################################################
 
 ### PATTERNS
+This patterns have been created at  [https://grokdebug.herokuapp.com/](https://grokdebug.herokuapp.com/) 
 
 #### mimov
 
