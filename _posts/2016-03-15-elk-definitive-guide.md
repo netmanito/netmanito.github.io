@@ -6,6 +6,8 @@ categories: jekyll elasticsesarch update
 ---
 # INSTALL LOGSTASH-ELASTICSEARCH-KIBANA + LOGSTASH FORWARDERS
 
+These are my experiences with ELK, and I'm storing all I find useful or interesting here.
+
 In this tutorial, we will go over the installation of the Elasticsearch ELK Stack on CentOS 7-that is, Elasticsearch 1.4.4, Logstash 1.5.0, and Kibana 4. We will also show you how to configure it to gather and visualize the syslogs of your systems in a centralized location. Logstash is an open source tool for collecting, parsing, and storing logs for future use. Kibana 4 is a web interface that can be used to search and view the logs that Logstash has indexed. Both of these tools are based on Elasticsearch.
 
 Our Logstash / Kibana setup has four main components:
@@ -328,7 +330,7 @@ Comment the following part in /etc/nginx/nginx.conf and we'll create our own ser
 #### kibana3 with nginx
 Create a configuration in nginx to serve the kibana3 service.
 
-	root@ESJC-HAHP-MS01S:/etc/nginx/conf.d# cat nginx.kibana3.conf 
+	root@host-01S:/etc/nginx/conf.d# cat nginx.kibana3.conf 
     	server {
 	        listen       80 default_server;
 	        server_name  localhost;
@@ -402,7 +404,7 @@ Now start and enable Nginx to put our changes into effect:
 
 Maybe you've an APACHE running and don't want to use nginx or you're not able to, therefore, you still can proxy pass kibana with apache, please follow this configuration.
 
-	admin@ESJC-HAHP-AS07P ~ $ cat /etc/httpd/conf.d/kibana.conf 
+	admin@host-07P ~ $ cat /etc/httpd/conf.d/kibana.conf 
 	# Proxypass kibana4
 	ProxyPass /kibana/ http://monitor01:5601/
 	ProxyPassReverse /kibana/ http://monitor01:5601/
@@ -435,7 +437,7 @@ If you built the package, you'll need to install it on the forwarder hosts and u
  logstash-forwarder-0.4.0-1.x86_64.rpm
  logstash-forwarder.crt
 
-	[admin@ESJC-HAHP-AS05P ~]$ cat /etc/logstash-forwarder
+	[admin@host-05P ~]$ cat /etc/logstash-forwarder
 	{
 	  "network": {
 	    "servers": [ "logstash-server:5000" ],
@@ -461,14 +463,14 @@ If you built the package, you'll need to install it on the forwarder hosts and u
 Run it with the following bash script or edit /etc/init.d/logstash-forwarder to addapt the options as in here.
 You can manage spool-size from 1-100+ depending how much logs you index.
 
-	 root@ESJC-HAHP-AS01P:~# cat logstash-forwarder.sh
+	 root@host-01P:~# cat logstash-forwarder.sh
 	 nohup /opt/logstash-forwarder/bin/logstash-forwarder -config=/etc/logstash-forwarder -spool-size=10 -log-to-syslog &
 
 You can check if it's working fine by looking at messages log.
 
-	root@ESJC-HAHP-AS05P:/home/admin#  tailf /var/log/messages
-	Apr 13 09:54:32 esjc-hahp-as05p logstash-forwarder[11095]: 2015/04/13 09:54:32.669446 Registrar: processing 66 events
-	Apr 13 09:55:00 esjc-hahp-as05p logstash-forwarder[11095]: 2015/04/13 09:55:00.126108 Registrar: processing 34 events
+	root@host-05P:/home/admin#  tailf /var/log/messages
+	Apr 13 09:54:32 host-05p logstash-forwarder[11095]: 2015/04/13 09:54:32.669446 Registrar: processing 66 events
+	Apr 13 09:55:00 host-05p logstash-forwarder[11095]: 2015/04/13 09:55:00.126108 Registrar: processing 34 events
 
 
 # ELK  Architecture
@@ -479,19 +481,19 @@ We've 2 hosts LSF sending via lumberjack over a master node with 2 ES instances 
 Then we've 2 more ES hosts, both data stored and one, acting as master and the third slave.
  
 
-	ESJC-HAHP-AS05P - LSF ---> |                                                                             |--> ESJC-HAHP-MS01P ES NODE2 MASTER
-                	           | --- > ESJC-HAHP-MS01S|hahpremsc - ELK (slave:slave) | ES NODE0 + NODE1 <--- |                                     
-	ESJC-HAHP-AS06P - LSF ---> |                                                                             |--> ESJC-HAHP-AS08S ES NODE3 - SLAVE 
+	host-05P - LSF ---> |                                                                             |--> host-01P ES NODE2 MASTER
+                	           | --- > host-01S - ELK (slave:slave) | ES NODE0 + NODE1 <--- |                                     
+	host-06P - LSF ---> |                                                                             |--> host-08S ES NODE3 - SLAVE 
 
 Update: we've added a new Logstash input service to separate live and stage environment as a segmentation network done.
 
-	ESJC-HAHP-AS05P - LSF ---> |                                                                             |--> ESJC-HAHP-MS01P ES NODE2 MASTER
-                	           | --- > ESJC-HAHP-MS01S|hahpremsc - ELK (slave:slave) | ES NODE0 + NODE1 <--- |                                     
-	ESJC-HAHP-AS06P - LSF ---> |                                                                             |--> ESJC-HAHP-AS08S ES NODE3 - SLAVE 
+	host-05P - LSF ---> |                                                                             |--> host-01P ES NODE2 MASTER
+                	           | --- > host-01S - ELK (slave:slave) | ES NODE0 + NODE1 <--- |                                     
+	host-06P - LSF ---> |                                                                             |--> host-08S ES NODE3 - SLAVE 
 
-	ESJC-HAHP-AS05S - LSF ---> |                                                                             
-                	           | --- > ESJC-HAHP-MS01P|hahpromsc - LGS -->  ESJC-HAHP-MS01S | ES NODE0 + NODE1                                      
-	ESJC-HAHP-AS06S - LSF ---> |                                                                             
+	host-05S - LSF ---> |                                                                             
+                	           | --- > host-01P - LGS -->  host-01S | ES NODE0 + NODE1                                      
+	host-06S - LSF ---> |                                                                             
 
 ## Logstash configurations
 
@@ -975,7 +977,7 @@ Here's a very good web on howto use basic kibana [https://www.mjt.me.uk/posts/ki
 
 #### Do a search in a certain index
 
-	curl -XGET 'http://localhost:9200/logstash-2015.04.16/_search?smart359464032046919=true' -d '' | xargs -p
+	curl -XGET 'http://localhost:9200/logstash-2015.04.16/_search?smart359422222046919=true' -d '' | xargs -p
 
 #### Show indices available
 
