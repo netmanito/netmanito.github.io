@@ -29,11 +29,13 @@ categories: jekyll update
 If your virtual disk looks full but not really as much, the you can shrink Virtualbox VM disk with the following:
 
 	sudo apt-get zerofree
+
 reboot and start in **Init 1** mode
 
 	mount -n -o remount,ro -t ext3 /dev/sda1 /
 	zerofree /dev/sda1
 	shutdown -h now
+	
 Once done, go back to the master host and
 
 	VboxManage modifyvdi /path/to/your/VM.vdi compact
