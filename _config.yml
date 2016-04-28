@@ -16,7 +16,9 @@ description: >
   This is a personal site where I leave data.
 #baseurl: "/centrarium/" # the subpath of your site, e.g. /blog/
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://seriousman.org" # the base hostname & protocol for your site
+url: "https://seriousman.org" # the base hostname & protocol for your site
+enforce_ssl: seriousman.org   # without any protocol
+
 cover: "assets/header_image.jpg"
 logo: "assets/logo.png"
 
