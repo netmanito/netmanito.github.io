@@ -2,8 +2,10 @@
 layout: post
 title: ELK the definitive guide
 date: 2016-03-15
-categories: jekyll elasticsesarch update
+categories: elk linux update
+
 ---
+
 # INSTALL LOGSTASH-ELASTICSEARCH-KIBANA + LOGSTASH FORWARDERS
 
 These are my experiences with ELK, and I'm storing all I find useful or interesting here.
@@ -986,13 +988,13 @@ Here's a very good web on howto use basic kibana [https://www.mjt.me.uk/posts/ki
 
 ### Can I have multiple Master NODES in my ES Cluster?
 
-Answer 1) You cannot have more than one master node.
+**Answer 1)** You cannot have more than one master node.
 
-Answer 2) Consider you have 3 nodes n1, n2 and n3 that all contain data, and currently n1 is selected as the master master node. If you query in n2 node the query will be distributed to all corresponding shards of indexes[replica shard or primary shard]. The result from each shards are combined and return back to you (see the query phase docs).
+**Answer 2)** Consider you have 3 nodes n1, n2 and n3 that all contain data, and currently n1 is selected as the master master node. If you query in n2 node the query will be distributed to all corresponding shards of indexes[replica shard or primary shard]. The result from each shards are combined and return back to you (see the query phase docs).
 
 It's not necessary to distribute the query by master node. Any node data or master or non data node can act as router[Distributing search queries].
 
-Answer 3) yes the master node can be small if the node does not contain data because it need not take care of data management.Its only work is to just route the queries to corresponding nodes and return the result to you. If the master node contains data then you should have configuration more than an data node. because it have 2 works [data management,routing query]..
+**Answer 3)** yes the master node can be small if the node does not contain data because it need not take care of data management.Its only work is to just route the queries to corresponding nodes and return the result to you. If the master node contains data then you should have configuration more than an data node. because it have 2 works [data management,routing query]..
 
 ### Setting throttle to unlimited.
 

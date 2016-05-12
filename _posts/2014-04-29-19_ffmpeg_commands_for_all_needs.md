@@ -9,17 +9,17 @@ Thanks to: Posted by jbj on Sep 22, 2008 in GNU/Linux, Operating systems at [cat
 
 **ffmpeg** is a multiplatform, open-source library for video and audio files. I have compiled 19 useful and amazing commands covering almost all needs: video conversion, sound extraction, encoding file for iPod or PSP, and more.
 
-####Getting infos from a video file
+#### Getting infos from a video file
 
 	ffmpeg -i video.avi
 
-####Turn X images to a video sequence
+#### Turn X images to a video sequence
 
 	ffmpeg -f image2 -i image%d.jpg video.mpg
 
 This command will transform all the images from the current directory (named image1.jpg, image2.jpg, etc...) to a video file named video.mpg.
 
-####Turn a video to X images
+#### Turn a video to X images
 
 	ffmpeg -i video.mpg image%d.jpg
 
@@ -40,7 +40,7 @@ Explanations :
     Video size : 320px par 180px
     Generated video : final_video.mp4
 
-####Encode video for the PSP
+#### Encode video for the PSP
 
 	ffmpeg -i source_video.avi -b 300 -s 320x240 -vcodec xvid -ab 32 -ar 24000 -acodec aac final_video.mp4
 
@@ -54,7 +54,7 @@ Explanations :
     Video size : 320px par 180px
     Generated video : final_video.mp4
 
-####Extracting sound from a video, and save it as Mp3
+#### Extracting sound from a video, and save it as Mp3
 
 	ffmpeg -i source_video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 sound.mp3
 
@@ -65,19 +65,19 @@ Explanations :
     output format : mp3
     Generated sound : sound.mp3
 
-####Convert a wav file to Mp3
+#### Convert a wav file to Mp3
 
 	ffmpeg -i son_origine.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 son_final.mp3
 
-####Convert .avi video to .mpg
+#### Convert .avi video to .mpg
 
 	ffmpeg -i video_origine.avi video_finale.mpg
 
-####Convert .mpg to .avi
+#### Convert .mpg to .avi
 
 	ffmpeg -i video_origine.mpg video_finale.avi
 
-####Convert .avi to animated gif(uncompressed)
+#### Convert .avi to animated gif(uncompressed)
 
 	ffmpeg -i video_origine.avi gif_anime.gif
 
@@ -85,11 +85,11 @@ Mix a video with a sound file
 
 	ffmpeg -i son.wav -i video_origine.avi video_finale.mpg
 
-####Convert .avi to .flv
+#### Convert .avi to .flv
 
 	ffmpeg -i video_origine.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320x240 -f flv video_finale.flv
 
-####Convert .avi to dv
+#### Convert .avi to dv
 
 	ffmpeg -i video_origine.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 video_finale.dv
 
@@ -97,7 +97,7 @@ Or:
 
 	ffmpeg -i video_origine.avi -target pal-dv video_finale.dv
 
-####Convert .avi to mpeg for dvd players
+#### Convert .avi to mpeg for dvd players
 
 	ffmpeg -i source_video.avi -target pal-dvd -ps 2000000000 -aspect 16:9 finale_video.mpeg
 
@@ -107,15 +107,15 @@ Explanations :
     ps 2000000000 maximum size for the output file, in bits (here, 2 Gb)
     aspect 16:9 : Widescreen
 
-####Compress .avi to divx
+#### Compress .avi to divx
 
 	ffmpeg -i video_origine.avi -s 320x240 -vcodec msmpeg4v2 video_finale.avi
 
-####Compress Ogg Theora to Mpeg dvd
+#### Compress Ogg Theora to Mpeg dvd
 
 	ffmpeg -i film_sortie_cinelerra.ogm -s 720x576 -vcodec mpeg2video -acodec mp3 film_terminée.mpg
 
-####Compress .avi to SVCD mpeg2
+#### Compress .avi to SVCD mpeg2
 
 NTSC format:
 
@@ -125,7 +125,7 @@ PAL format:
 
 	ffmpeg -i video_origine.avi -target pal-svcd video_finale.mpg
 
-####Compress .avi to VCD mpeg2
+#### Compress .avi to VCD mpeg2
 
 NTSC format:
 
@@ -135,6 +135,6 @@ PAL format:
 
 	ffmpeg -i video_origine.avi -target pal-vcd video_finale.mpg
 
-####Multi-pass encoding with ffmpeg
+#### Multi-pass encoding with ffmpeg
 
 	ffmpeg -i fichierentree -pass 2 -passlogfile ffmpeg2pass fichiersortie-2

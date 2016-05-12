@@ -7,7 +7,7 @@ categories: jekyll update
 
 Update: 2014-02-06 17:46
 
-####Find hard link files
+#### Find hard link files
 
 	$ find /usr/local/ -type f -a \! -links 1
 
@@ -84,7 +84,7 @@ also you can use see
 
 	$ for i in *; do k=`echo $i|cut -b 19-`; r=$k; mv $i $r;done
 
-####Export Xserver 
+#### Export Xserver 
 
 On server side:
 X11 installed and ssh X11 forwarding enabled

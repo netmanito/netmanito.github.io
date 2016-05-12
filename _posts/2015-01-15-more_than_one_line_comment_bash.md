@@ -5,7 +5,7 @@ date: 2015-01-14 17:03
 categories: jekyll update
 ---
 
-####More than one line comment bash
+#### More than one line comment bash
 
 
 	#!/bin/bash
@@ -19,13 +19,13 @@ categories: jekyll update
 
 
 
-####Check tcp open ports 
+#### Check tcp open ports 
 While doing this, you're checking if the port 1521 is open at the ip address, very useful when you don't have `nc` netcat, mmap or other stuff.
 
 	[root@host]# echo "" > /dev/tcp/172.10.0.15/1521
 
 
-####PFX Certificates
+#### PFX Certificates
 
 PFX files are PKCS#12 Personal Information Exchange Syntax Standard files. They can include arbitrary number of private keys with accompanying X.509 certificates (public keys) and a Certificate Authority Chain.
 
@@ -38,7 +38,7 @@ The command above will output the certificate(s) in PEM format. The ".crt" exten
 	openssl x509 -inform pem -in mycertificates.crt -outform der -out mycertificates.cer
 
 
-####Network routing
+#### Network routing
 
 
 You can add static route using following command:
@@ -53,7 +53,7 @@ Alternatively, you can use old good route command:
 
 
 
-####Grep the nth line of a file?
+#### Grep the nth line of a file?
 
 Good old-fashioned awk is incredibly useful for these small jobs:
 
