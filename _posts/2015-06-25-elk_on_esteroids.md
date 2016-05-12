@@ -10,7 +10,7 @@ But the problem comes when you want to make it work daily.
 
 Here are some ELK Tips, but first, 
 
-###Some important questions
+### Some important questions
 
 
 1. You cannot have more than one ES (ElasticSearch) master node.
@@ -23,7 +23,7 @@ It's not necessary to distribute the query by master node. Any node data or mast
 
 Now, some help,
 
-###HQ Plugin
+### HQ Plugin
 
 This is a great plugin to manage your Elasticsearch Cluster.
 
@@ -57,7 +57,7 @@ You should see something like that on your screen
 
 **Be careful as different versions may change their configuration syntax!** 
 
-###Fake SSL Certs
+### Fake SSL Certs
 
 This is an extract of the following [url](http://serverfault.com/questions/633681/logstash-forwarder-is-throwing-ssl-errors "serverfault")
 
@@ -110,7 +110,7 @@ If you connect via host names, you can remove the IP SAN's, otherwise add your *
 
 This will create a kind of wildcard certificate accepting any hostname and the IP addresses mentioned it that file. Of course this is just a simple example and you will need to adjust the settings to your needs.
 
-###Delete Index
+### Delete Index
 
 The delete index API allows to delete an existing index.
 
@@ -122,7 +122,7 @@ You can delete also all indices with
 	curl -XDELETE ‘http://localhost:9200/_all
 
 
-###Old Indices ES-Curator
+### Old Indices ES-Curator
 
 With Curator you can manage automatically old Indices to close or remove them.  
 
@@ -134,7 +134,7 @@ Add the following line to run curator at 20 minutes past midnight (system time) 
 
 	20 0 * * * /usr/local/bin/curator --host elasticsearch -d 120 -c 90
 
-###Manage ES Throttle
+### Manage ES Throttle
 
 Set throttle to unlimited in *ES* if you need to bulk import your data.
 

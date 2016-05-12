@@ -25,13 +25,13 @@ If you have your own Linux serving AFP, edit your **/etc/netatalk/AppleVolumes.d
 
 	~/.TimeMachine "$u Backup" allow:YOUR_USERNAME cnidscheme:dbd options:usedots,upriv,tm 
 
-###Enable Time Machine Network Volumes
+### Enable Time Machine Network Volumes
 
 If your network storage is not detected as a TimeMachine destination, type this in your terminal.
 
 	defaults write com.apple.systempreferences MShowUnsupportedNetworkVolumes 1
 
-###Starting new TimeMachine backup?
+### Starting new TimeMachine backup?
 
 Mount your Network Shared Folder where you want time machine to be stored.
 In your localhost, open a terminal and create an image disk as follows:
@@ -54,14 +54,14 @@ or
 	
 	sudo tmutil setdestination afp://user:pass@host/share
 
-###Change TimeMachine backup time Intervals
+### Change TimeMachine backup time Intervals
 
 Last number is the seconds you want between each backup *(14400 = 4h)*.
 
 	sudo defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 14400
 	
 
-###Problems removing TimeMachine Backups
+### Problems removing TimeMachine Backups
 
 Trying to remove *Backups.backupdb* and you receive  "operation not permitted" errors?
 
@@ -75,7 +75,7 @@ In Mountain Lion **bypass** has changed in place so you must type:
 	
 … And last one is 
 
-###Fix Time Machine Sparsebundle NAS Based Backup Errors
+### Fix Time Machine Sparsebundle NAS Based Backup Errors
 
 Please follow this [link](http://www.garth.org/archives/2011,08,27,169,fix-time-machine-sparsebundle-nas-based-backup-errors.html "Fix Time Machine Sparsebundle NAS Based Backup Errors") for the whole process as I'm only describing the quicks.
 
