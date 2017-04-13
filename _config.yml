@@ -47,11 +47,17 @@ disqus_shortname:
 
 # Category descriptions (for archive pages)
 descriptions:
-  - cat: jekyll
-    desc: "Posts describing Jekyll setup techniques."
+  - cat: default
+    desc: "Posts describing defaults setup techniques."
 
-  - cat: dummy
-    desc: "Just some placeholder posts, lorem ipsum and the rest."
+  - cat: update
+    desc: "Just some updated posts"
+
+  - cat: linux
+    desc: "Linux posts for fun and profit"
+
+  - cat: elk
+    desc: "ELK posts as I like it"
 
 # Social icons and sharing options
 #

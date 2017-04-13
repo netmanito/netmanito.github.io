@@ -2,7 +2,7 @@
 layout: post
 title: timemachine_helpers
 date: 2012-12-10 11:35
-categories: jekyll update
+categories: default update
 ---
 
 ![TimeMachine icon](https://dl.dropbox.com/u/4473739/seriousman.org/time-machine.png)

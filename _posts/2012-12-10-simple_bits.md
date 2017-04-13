@@ -2,7 +2,7 @@
 layout: post
 title: simple_bits
 date: 2012-12-10 11:42
-categories: jekyll update
+categories: default update
 ---
 
 This are little **bits** I frequently use and sometimes forgive.
