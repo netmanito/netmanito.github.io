@@ -2,7 +2,7 @@
 layout: post
 title: Some Linux Tips
 date: 2012-10-09 13:23
-categories: jekyll update
+categories: default update
 ---
 
 Update: 2014-02-06 17:46

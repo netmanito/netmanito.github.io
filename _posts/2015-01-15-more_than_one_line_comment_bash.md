@@ -2,7 +2,7 @@
 layout: post
 title: More Linux Tips
 date: 2015-01-14 17:03
-categories: jekyll update
+categories: default update
 ---
 
 #### More than one line comment bash

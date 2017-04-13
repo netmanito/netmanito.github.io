@@ -2,7 +2,7 @@
 layout: post
 title: ELK on esteroids
 date: 2015-06-26
-categories: jekyll elasticsearch
+categories: default elk
 ---
 
 Ok, ELK is fashion now and you can find many documentation on how to install and configure ELK environments and more.
@@ -29,11 +29,11 @@ This is a great plugin to manage your Elasticsearch Cluster.
 
 Install it with 
 
-	/usr/share/elasticsearch/bin/plugin -i royrusso/elasticsearch-HQ
+	/usr/share/elk/bin/plugin -i royrusso/elk-HQ
 
 Then, point your browser to the below address and you'll be able to see and graphically manage your ES cluster.
 	
-	http://your.elasticsearch.host:9200/_plugin/HQ/
+	http://your.elk.host:9200/_plugin/HQ/
 
 #### GrokDebug
 Grok will help you parse your own app logs or whatever you want to index.
@@ -52,7 +52,7 @@ If you prefer you can check a certain file configuration too.
 
 You should see something like that on your screen
 
-	You are using a deprecated config setting "type" set in elasticsearch. Deprecated settings will continue to work, but are scheduled for removal from logstash in the future. You can achieve this same behavior with the new conditionals, like: `if [type] == "sometype" { elasticsearch { ... } }`. If you have any questions about this, please visit the #logstash channel on freenode irc. {:name=>"type", :plugin=><LogStash::Outputs::ElasticSearch --->, :level=>:warn}
+	You are using a deprecated config setting "type" set in elk. Deprecated settings will continue to work, but are scheduled for removal from logstash in the future. You can achieve this same behavior with the new conditionals, like: `if [type] == "sometype" { elk { ... } }`. If you have any questions about this, please visit the #logstash channel on freenode irc. {:name=>"type", :plugin=><LogStash::Outputs::ElasticSearch --->, :level=>:warn}
 	Configuration OK
 
 **Be careful as different versions may change their configuration syntax!** 
@@ -126,13 +126,13 @@ You can delete also all indices with
 
 With Curator you can manage automatically old Indices to close or remove them.  
 
-Then use pip to install elasticsearch-curator
+Then use pip to install elk-curator
 
-	pip install elasticsearch-curator
+	pip install elk-curator
 
-Add the following line to run curator at 20 minutes past midnight (system time) and connect to the elasticsearch node on 127.0.0.1 and delete all indexes older than 120 days and close all indexes older than 90 days.
+Add the following line to run curator at 20 minutes past midnight (system time) and connect to the elk node on 127.0.0.1 and delete all indexes older than 120 days and close all indexes older than 90 days.
 
-	20 0 * * * /usr/local/bin/curator --host elasticsearch -d 120 -c 90
+	20 0 * * * /usr/local/bin/curator --host elk -d 120 -c 90
 
 ### Manage ES Throttle
 
@@ -159,11 +159,11 @@ Set throttle to unlimited in *ES* if you need to bulk import your data.
 
 *	ES
 
-https://www.elastic.co/guide/en/elasticsearch/guide/current/root-object.html
+https://www.elastic.co/guide/en/elk/guide/current/root-object.html
 
-https://blog.codecentric.de/en/2014/05/elasticsearch-indexing-performance-cheatsheet/
+https://blog.codecentric.de/en/2014/05/elk-indexing-performance-cheatsheet/
 
-https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing
+https://www.elastic.co/blog/performance-considerations-elk-indexing
 
 *	Kibana
 
@@ -175,4 +175,4 @@ https://www.mjt.me.uk/posts/kibana-101/
 
 *	ELK
 
-https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7
+https://www.digitalocean.com/community/tutorials/how-to-install-elk-logstash-and-kibana-4-on-centos-7

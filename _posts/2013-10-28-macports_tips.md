@@ -2,7 +2,7 @@
 layout: post
 title: MacPorts Maintenance
 date: 2013-10-28 10:36
-categories: jekyll update
+categories: default update
 ---
 
 To maintain you macports repository clean and without unused stuff, proceed with:

@@ -2,7 +2,7 @@
 layout: post
 title: After a fresh minimal Debian install
 date: 2015-02-05 17:32
-categories: jekyll update
+categories: default update
 ---
 
 I do this many times when I play with VM's (virtual machines); so I've to leave written all I normally do after a **Fresh minimal Debian Install** 

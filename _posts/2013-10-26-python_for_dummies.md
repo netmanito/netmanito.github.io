@@ -2,7 +2,7 @@
 layout: post
 title: Python for dummies
 date: 2013-10-26 14:39
-categories: jekyll update
+categories: default update
 ---
 
 Virtualenv creates a completely separated sandbox for python and it's tools.

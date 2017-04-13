@@ -2,7 +2,7 @@
 layout: post
 title: ssh_client_config
 date: 2012-11-28 11:14
-categories: jekyll update
+categories: default update
 ---
 
 Managing to get into several different severs, has provoked my **.ssh/config** file to be modified.

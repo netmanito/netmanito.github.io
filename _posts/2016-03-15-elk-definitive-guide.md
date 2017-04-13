@@ -22,7 +22,7 @@ Our Logstash / Kibana setup has four main components:
 
 *Logstash Forwarder: Installed on servers that will send their logs to Logstash, Logstash Forwarder serves as a log forwarding agent that utilizes the lumberjack networking protocol to communicate with Logstash*
 
-Note: This tutorial can be applied to install versions 2.X from elasticsearch and logstash, just keep in mind that there might be little changes, checkout [elasitc.co](https://elastic.co) to see changes.
+Note: This tutorial can be applied to install versions 2.X from elk and logstash, just keep in mind that there might be little changes, checkout [elasitc.co](https://elastic.co) to see changes.
 
 
 ## Install needed elements
@@ -43,47 +43,47 @@ You need to install java in order to make all this work. JAVA openjdk-7 is fine 
 
 Run the following command to import the Elasticsearch public GPG key into rpm:
 
-	sudo rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+	sudo rpm --import http://packages.elk.org/GPG-KEY-elk
 
 Create and edit a new yum repository file for Elasticsearch:
 
-	sudo vi /etc/yum.repos.d/elasticsearch.repo
+	sudo vi /etc/yum.repos.d/elk.repo
 
 Add the following repository configuration:
 
-	[elasticsearch-1.4]
+	[elk-1.4]
 	name=Elasticsearch repository for 1.4.x packages
-	baseurl=http://packages.elasticsearch.org/elasticsearch/1.4/centos
+	baseurl=http://packages.elk.org/elk/1.4/centos
 	gpgcheck=1
-	gpgkey=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+	gpgkey=http://packages.elk.org/GPG-KEY-elk
 	enabled=1
 
 Save and exit.
 
 Install Elasticsearch 1.4.4 with this command:
 
-	sudo yum -y install elasticsearch-1.4.4
+	sudo yum -y install elk-1.4.4
 
 Elasticsearch is now installed. Let's edit the configuration:
 
-	sudo vi /etc/elasticsearch/elasticsearch.yml
+	sudo vi /etc/elk/elk.yml
 
 You will want to restrict outside access to your Elasticsearch instance (port 9200), so outsiders can't read your data or shutdown your Elasticsearch cluster through the HTTP API. Find the line that specifies network.host, uncomment it, and replace its value with "localhost" so it looks like this:
 
 	network.host: localhost
 
-Save and exit elasticsearch.yml.
+Save and exit elk.yml.
 
-Note: If you work with a elasticsearch cluster you'll need to use FQDN or IP addresses visible from the rest of the nodes. 
+Note: If you work with a elk cluster you'll need to use FQDN or IP addresses visible from the rest of the nodes. 
 
 
 Now start Elasticsearch:
 
-	sudo systemctl start elasticsearch.service
+	sudo systemctl start elk.service
 
 Then run the following command to start Elasticsearch automatically on boot up:
 
-	sudo systemctl enable elasticsearch.service
+	sudo systemctl enable elk.service
 
 Now that Elasticsearch is up and running, let's install logstash
 
@@ -97,9 +97,9 @@ Add the following repository configuration:
 
 	[logstash-1.5]
 	name=logstash repository for 1.5.x packages
-	baseurl=http://packages.elasticsearch.org/logstash/1.5/centos
+	baseurl=http://packages.elk.org/logstash/1.5/centos
 	gpgcheck=1
-	gpgkey=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+	gpgkey=http://packages.elk.org/GPG-KEY-elk
 	enabled=1
 
 Save and exit.
@@ -212,9 +212,9 @@ You can see 3 different blocks in the configuration that are mandatory and must 
     	 }
 	}
 	##################################################
-	## output to elasticsearch for data explotation
+	## output to elk for data explotation
 	output {
-	  elasticsearch {
+	  elk {
 	   host => localhost
 	  }
 	  stdout { 
@@ -245,8 +245,8 @@ Kibana3 is quite simple compared to Kibana4 which is a whole app. In this case, 
 
 Check whether the following line is uncommented in config.js
 
-	    elasticsearch: "http://"+window.location.hostname+":80",
-You don't need to touch anything if you have an elasticsearch node installed and available in the same host.
+	    elk: "http://"+window.location.hostname+":80",
+You don't need to touch anything if you have an elk node installed and available in the same host.
 
 On Kibana3 we'll use dashboards that will be stored in kibana3/app/dashboards/ with .json extension.
 We can create many dashboards and have them placed at this directory and later on access through
@@ -257,7 +257,7 @@ We can create many dashboards and have them placed at this directory and later o
 
 News on kibana4, no more static web system, now it starts all on listening to port 5601, so we'll configure the webserver to proxypass this address.
 
-	cd ~; wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
+	cd ~; wget https://download.elk.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
 
 Extract Kibana archive with tar:
 
@@ -478,7 +478,7 @@ You can check if it's working fine by looking at messages log.
 # ELK  Architecture
 
 
-ELK organization is defined as you want or need. In our case, we've 3 nodes to manage the elasticsearch cluster with logstash and kibana included.
+ELK organization is defined as you want or need. In our case, we've 3 nodes to manage the elk cluster with logstash and kibana included.
 We've 2 hosts LSF sending via lumberjack over a master node with 2 ES instances in slave mode, one with store data and the input one has no store.
 Then we've 2 more ES hosts, both data stored and one, acting as master and the third slave.
  
@@ -838,7 +838,7 @@ The **geoip** plugin to manage locations.
 
 ### OUTPUT
 
-Output example, basically elasticsearch, but remember you can output to many other things.
+Output example, basically elk, but remember you can output to many other things.
 
 #### 20-output.cfg
 
@@ -846,14 +846,14 @@ Output example, basically elasticsearch, but remember you can output to many oth
 	#output {
 	#
 	#  if [type] == "mimov" {
-	#    elasticsearch {
+	#    elk {
 	#      host => ["server1:9300","server2:9300"]
 	#      protocol => transport
 	#      cluster => mycluster
 	#    }
 	#  }
 	#  if [type] == "oysta" {
-	#    elasticsearch {
+	#    elk {
 	#      host => "server3" 
 	#      protocol => transport
 	#    }
@@ -865,7 +865,7 @@ Output example, basically elasticsearch, but remember you can output to many oth
 	#}
 
 	output {
-	  elasticsearch {
+	  elk {
 	    host =>  "elastic-host" 
 	    protocol => transport
 	    cluster => mycluster
@@ -898,7 +898,7 @@ This patterns have been created at  [https://grokdebug.herokuapp.com/](https://g
 
 Install with
 
-	/usr/share/elasticsearch/bin/plugin -install royrusso/elasticsearch-HQ
+	/usr/share/elk/bin/plugin -install royrusso/elk-HQ
 
 Then point your browser to
 
@@ -908,7 +908,7 @@ Then point your browser to
 
 Automatic index cleaning via Curator
 
-You can use the curator program to delete indexes. See more information in the github repository: https://github.com/elasticsearch/curator
+You can use the curator program to delete indexes. See more information in the github repository: https://github.com/elk/curator
 
 Youfll need pip in order to install curator:
 
@@ -916,9 +916,9 @@ Youfll need pip in order to install curator:
 
 Once itfs done, you can install curator:
 
-	$ sudo pip install elasticsearch-curator
+	$ sudo pip install elk-curator
 
-Now, itfs easy to setup a cron to delete the indexes older than 30 days in /etc/cron.d/elasticsearch_curator:
+Now, itfs easy to setup a cron to delete the indexes older than 30 days in /etc/cron.d/elk_curator:
 
 	@midnight     root    curator --host $host delete indices --time-unit days --timestring "\%Y.\%m.\%d" --older-than 30 >> /var/log/curator.log 2>&1
 
@@ -999,7 +999,7 @@ It's not necessary to distribute the query by master node. Any node data or mast
 ### Setting throttle to unlimited.
 
 If you need to make bulk import from your data, ensure to free ES limit throttle. You can later put it back as it was.
-Please follow this instructions on how tunning your cluster https://www.elastic.co/guide/en/elasticsearch/guide/master/indexing-performance.html
+Please follow this instructions on how tunning your cluster https://www.elastic.co/guide/en/elk/guide/master/indexing-performance.html
 
 	curl -XPUT 'http://localhost:9200/_cluster/settings' -d '
 	{
@@ -1010,7 +1010,7 @@ Please follow this instructions on how tunning your cluster https://www.elastic.
 
 ### Setting ES to DEBUG mode
 
-	https://www.elastic.co/guide/en/elasticsearch/guide/master/logging.html
+	https://www.elastic.co/guide/en/elk/guide/master/logging.html
 
 
 ### ES, when to use TCP (transport) module or HTTP module in your cluster
