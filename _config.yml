@@ -59,6 +59,10 @@ descriptions:
   - cat: elk
     desc: "ELK posts as I like it"
 
+  - cat: osx
+    desc: "OSX posts ..."
+
+
 # Social icons and sharing options
 #
 # Social settings are used in two places:

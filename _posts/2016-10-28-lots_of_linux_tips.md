@@ -341,5 +341,71 @@ a reboot is required when this is finished
 To enable video0 on raspi
 
 	sudo modprobe bcm2835-v4l2 
+	
+## update-rc.d debian
 
+### Managing a service
+
+#### Default priorities
+
+If you want to re-add this service to be started on boot up, you can simply use:
+
+	update-rc.d apache2 defaults
+
+#### Specifying custom runlevels 
+
+If you only want to Start and Kill on specific runlevels, like for instance starting apache with priority 20 on runlevels 2, 3, 4 and 5 and Kill with priority 80 on runlevels 0, 1 and 6:
+
+	update-rc.d apache2 start 20 2 3 4 5 . stop 80 0 1 6 .
+	
+## HOWTO: Repair filesystem using fsck on a raid setup
+
+* Step 1.
+
+		$ mdadm --examine --scan >> /etc/mdadm.conf
+
+* Step 2.
+
+		$ mdadm --assemble /dev/md2
+
+		mdadm: /dev/md2 has been started with N drives.
+
+* Step 3.
+
+From here it works like any normal fsck. 
+
+	$ fsck /dev/md2 
+
+## MySQL basics
+
+### Create BBDD  
+
+	[root@server html]# mysqladmin –u yourmysqladminuser –p create yourdatabase
+	Enter password:
+
+  
+### Import BBDD from sql file 
+  
+	[root@server html]# mysql -u root -p yourdatabase<backup_databse.sql
+
+  
+### give user permissions 
+  
+	[root@server html]# mysql –u yourmysqladmin –p Enter password:
+  
+	mysql> grant all on database.* to dbuser@localhost identified by 'password';
+
+  
+### Give password to user
+  
+	mysql> UPDATE user SET Password=PASSWORD('newpass') WHERE User='root';
+  
+	mysql> flush privileges ;
+  
+	mysql>exit
+
+
+### Dump database
+
+	mysqldump -u root -pPASSWORD basededatos > basededatos.dump.sql
 
