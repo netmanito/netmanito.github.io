@@ -251,9 +251,7 @@ If you see 1, ipv6 has been successfully disabled.
 
 To configure SSMTP, you will have to edit its configuration file (/etc/ssmtp/ssmtp.conf) and enter your account settings:
 
-	/etc/ssmtp/ssmtp.conf
-
-
+	#/etc/ssmtp/ssmtp.conf
 	# The user that gets all the mails (UID < 1000, usually the admin)
 	root=username@gmail.com
 
@@ -286,6 +284,10 @@ Create aliases for local usernames (optional)
 
 	root:username@gmail.com:smtp.gmail.com:587
 	mainuser:username@gmail.com:smtp.gmail.com:587
+
+Install basic mail application
+
+	apt-get install bsd-mailx
 
 To test whether the Gmail server will properly forward your email:
 
