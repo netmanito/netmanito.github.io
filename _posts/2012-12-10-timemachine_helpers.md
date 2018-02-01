@@ -5,7 +5,7 @@ date: 2012-12-10 11:35
 categories: default update
 ---
 
-![TimeMachine icon](https://www.dropbox.com/s/n53d2gvuk5s68w3/time-machine.png?dl=0)
+![TimeMachine icon](/assets/images/time-machine.png)
 
  Imagine You use Apple OSX, imagine you like to play in ***Terminal***, imagine you're trying to fix some issue with a certain **app** in your **~/Library** folder and you make a mistake, doing what's not supposed to do:
 
