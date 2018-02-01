@@ -147,12 +147,58 @@ Set throttle to unlimited in *ES* if you need to bulk import your data.
 	
 ### Fancy Queries
 
+**Show cluster health**
 
-	curl -XGET ‘http://172.17.0.142:9200/_count?pretty' -d '
-	
 	curl http://localhost:9200/_cluster/health?pretty
-	
+
+#### Show cluster processes
+
 	curl http://localhost:9200/_nodes/process?pretty
+
+#### Get index mappings
+
+	curl -XGET 'http://localhost:9200/_mapping'
+
+#### Do a search in a certain index
+
+	curl -XGET 'http://localhost:9200/logstash-2015.04.16/_search?smart359422222046919=true' -d '' | xargs -p
+
+#### Show indices available
+
+	curl -XGET 'http://localhost:9200/_cat/indices?v'
+
+### Can I have multiple Master NODES in my ES Cluster?
+
+**Answer 1)** You cannot have more than one master node.
+
+**Answer 2)** Consider you have 3 nodes n1, n2 and n3 that all contain data, and currently n1 is selected as the master master node. If you query in n2 node the query will be distributed to all corresponding shards of indexes[replica shard or primary shard]. The result from each shards are combined and return back to you (see the query phase docs).
+
+It's not necessary to distribute the query by master node. Any node data or master or non data node can act as router[Distributing search queries].
+
+**Answer 3)** yes the master node can be small if the node does not contain data because it need not take care of data management.Its only work is to just route the queries to corresponding nodes and return the result to you. If the master node contains data then you should have configuration more than an data node. because it have 2 works [data management,routing query]..
+
+### Setting throttle to unlimited.
+
+If you need to make bulk import from your data, ensure to free ES limit throttle. You can later put it back as it was.
+Please follow this instructions on how tunning your cluster https://www.elastic.co/guide/en/elasticsearch/guide/master/indexing-performance.html
+
+	curl -XPUT 'http://localhost:9200/_cluster/settings' -d '
+	{
+	    "transient" : {
+		"indices.store.throttle.type" : "none" 
+	    }
+	}'
+
+### Setting ES to DEBUG mode
+
+	https://www.elastic.co/guide/en/elasticsearch/guide/master/logging.html
+
+
+### ES, when to use TCP (transport) module or HTTP module in your cluster
+
+The transport module is used for internal communication between nodes within the cluster. Each call that goes from one node to the other uses the transport module (for example, when an HTTP GET request is processed by one node, and should actually be processed by another node that holds the data).
+
+The transport mechanism is completely asynchronous in nature, meaning that there is no blocking thread waiting for a response. The benefit of using asynchronous communication is first solving the C10k problem, as well as being the ideal solution for scatter (broadcast) / gather operations such as search in ElasticSearch.
 
 	
 ### Some usefull links
