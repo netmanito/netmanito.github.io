@@ -14,8 +14,9 @@ date_format: '%Y-%m-%d'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com' and baseurl as '/child'
-url:
-baseurl:
+url: "https://seriousman.org" # the base hostname
+baseurl: "" # the subpath of your site, e.g. /blog/
+enforce_ssl: seriousman.org # without subpath
 permalink: pretty
 
 # Pagination
@@ -118,7 +119,7 @@ index_with_subtitle: false
 menu:
   home: /
   #categories: /categories/
-  #about: /about/
+  about: /about/
   archives: /archives/
   tags: /tags/
   #sitemap: /sitemap.xml
@@ -351,8 +352,9 @@ custom_logo:
 # Code Highlight theme
 # Available value:
 #    normal | night | night eighties | night blue | night bright
+#    default: normal
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # ---------------------------------------------------------------
@@ -443,7 +445,7 @@ changyan:
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
 duoshuo_info:
-  ua_enable: true
+  ua_enable: false
   admin_enable: false
   user_id: 0
   #admin_nickname: Author
