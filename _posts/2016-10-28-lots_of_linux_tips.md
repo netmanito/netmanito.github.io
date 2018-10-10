@@ -411,3 +411,31 @@ From here it works like any normal fsck.
 
 	mysqldump -u root -pPASSWORD basededatos > basededatos.dump.sql
 
+## Ulimits
+
+Check Hard Limit in Linux
+
+```
+# ulimit -Hn
+4096
+```
+
+Check Soft Limits in Linux
+
+```
+# ulimit -Sn
+1024
+```
+
+Set new limits
+
+```
+# vi /etc/security/limits.conf
+```
+Add the following to limits.conf
+
+
+	http        hard nofile 4096
+	http        soft nofile 1024
+
+
