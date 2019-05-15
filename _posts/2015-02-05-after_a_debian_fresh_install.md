@@ -14,11 +14,21 @@ First of all, I've not set the *apt* repositories yet for a quicker install.
 
 Once you've added the url for repositories you can start to install all you need.
 
+```
+$ apt-get update && apt-get -y upgrade
+$ dpkg-reconfigure tzdata
+$ export LC_ALL="C"
+$ dpkg-reconfigure locales -p critical
+$ locale-gen
+```
+
 For basics:
-	
-	$ apt-get update
-	$ apt-get install -y vim vim-scripts mc screen less links curl sudo rsync openssh-server
-	$ update-alternatives --all (this changes your default editor and more)
+
+```	
+$ apt-get update
+$ apt-get install -y vim vim-scripts mc screen less links curl sudo rsync openssh-server
+$ update-alternatives --all (this changes your default editor and more)
+```
 
 Check whether there's an enabled group in sudoers
 
@@ -27,7 +37,7 @@ Check whether there's an enabled group in sudoers
 Check for the following line, normally enable in Debian.
 
 	## Allows people in group wheel to run all commands
-	%sudo	ALL=(ALL)	ALL
+	%sudo  ALL=(ALL) NOPASSWD:ALL
 	
 Add your user to this group
 
