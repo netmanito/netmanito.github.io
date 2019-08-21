@@ -98,7 +98,9 @@ docker rmi dockeruser/$docker-image:newversion
 
 Checkout if it works through name web
 
-	docker inspect -f "{{ .HostConfig.Links }}" web
+```
+docker inspect -f "{{ .HostConfig.Links }}" web
+```
 
 ## ENVIRONMENT VARIABLES
 
@@ -132,7 +134,7 @@ $ docker inspect container-data
 
 	docker run -it -h NEWCONTAINER --volumes-from container-data debian /bin/bas
 
-### BACKUP A DATA VOLUMEN
+### BACKUP A DATA VOLUME
 
 #### create volume
 
