@@ -93,8 +93,10 @@ docker rmi dockeruser/$docker-image:newversion
 
 ## CONNECT CONTAINERS
 
-	docker run -d --name dblink training/postgres
-	docker run -d -P --name web --link dblink:dblink training/webapp python app.py
+```
+docker run -d --name dblink training/postgres 
+docker run -d -P --name web --link dblink:dblink training/webapp python app.py
+```
 
 Checkout if it works through name web
 
