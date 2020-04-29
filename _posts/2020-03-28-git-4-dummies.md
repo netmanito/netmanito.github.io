@@ -28,7 +28,7 @@ Ensure `/home/git` exists and create `.ssh` and .`ssh/authorized_keys` in it so 
 From your host, add your authorized key in the master
 
 ```
-cat .ssh/id_rsa.pub | ssh git@123.45.56.78 "cat >> ~/.ssh/authorized_keys"
+cat .ssh/id_rsa.pub | ssh git@192.168.123.100 "cat >> ~/.ssh/authorized_keys"
 ```
 
 Now login as git user and create it’s git account and a new repository.
@@ -88,11 +88,11 @@ Everything up-to-date
 Ok, we’ve created a repo and we’ve clone in the same host and same user, let’s try now from a remote machine.
 
 ```
-[root@oracle_11gr2 ajsf]# git clone git@repohost:repo/test.git
-[root@oracle_11gr2 ajsf]# echo "more data on README" >> README
-[root@oracle_11gr2 ajsf]# git add README
-[root@oracle_11gr2 ajsf]# git add * 
-[root@oracle_11gr2 ajsf]# git commit -m "added howto ssh and some files"
+[root@oracle_11gr2 asdf]# git clone git@repohost:repo/test.git
+[root@oracle_11gr2 asdf]# echo "more data on README" >> README
+[root@oracle_11gr2 asdf]# git add README
+[root@oracle_11gr2 asdf]# git add * 
+[root@oracle_11gr2 asdf]# git commit -m "added howto ssh and some files"
 
 [master 6b1a582] added howto ssh
  Committer: root <root@oracle_11gr2.local>
@@ -108,9 +108,9 @@ If the identity used for this commit is wrong, you can fix it with:
     git commit --amend --author='Your Name <you@example.com>'
 
  1 files changed, 10 insertions(+), 0 deletions(-)
-[root@oracle_11gr2 ajsf]#  git config --global user.name "editor"
-[root@oracle_11gr2 ajsf]#  git config --global user.email "editor@whatever.com"
-[root@oracle_11gr2 ajsf]# git commit -m "added howto ssh"
+[root@oracle_11gr2 asdf]#  git config --global user.name "editor"
+[root@oracle_11gr2 asdf]#  git config --global user.email "editor@whatever.com"
+[root@oracle_11gr2 asdf]# git commit -m "added howto ssh"
 # On branch master
 # Your branch is ahead of 'origin/master' by 1 commit.
 #
@@ -120,7 +120,7 @@ nothing to commit (working directory clean)
 Let’s upload the changes to repository
 
 ```
-[root@oracle_11gr2 ajsf]# git push origin master
+[root@oracle_11gr2 asdf]# git push origin master
 Counting objects: 5, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100% (2/2), done.
@@ -128,7 +128,7 @@ Writing objects: 100% (3/3), 439 bytes, done.
 Total 3 (delta 1), reused 0 (delta 0)
 To git@repohost:repo/test.git
    e305104..6b1a582  master -> master
-[root@oracle_11gr2 ajsf]#
+[root@oracle_11gr2 asdf]#
 ```
 
 #### Create a new Branch	
