@@ -5,8 +5,6 @@ date: 2020-09-17
 categories: linux tips
 ---
 
-# ILM Policies Elasticsearch
-
 Basic howto on creating and understanding Elasticsearch ILM policies and index aliases
 
 ### Configuring indices and rollover
