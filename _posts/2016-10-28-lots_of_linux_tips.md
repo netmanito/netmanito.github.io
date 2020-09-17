@@ -438,4 +438,11 @@ Add the following to limits.conf
 	http        hard nofile 4096
 	http        soft nofile 1024
 
+## ZFS commands to check your pool
 
+```
+zpool status -v
+zpool list -v
+zpool get ashift
+zfs list -space,compressratio,recordsize,volblocksize -r -t all
+```
