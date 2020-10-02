@@ -119,10 +119,10 @@ PUT /%3Cnmon-%7Bnow%2FM%7Byyyy.MM%7D%7D-1%3E
 ##### Yearly Index
 
 ```
-PUT /%3Cmainframe-%7Bnow%2FM%7Byyyy%7D%7D-1%3E
+PUT /%3Ctcpdump-%7Bnow%2FM%7Byyyy%7D%7D-1%3E
 {
   "aliases": {
-    "mainframe": {
+    "tcpdump": {
       "is_write_index":true
     }
   }
@@ -213,6 +213,27 @@ tcpdump tcpdump-2020.01.31-000003 - - - true
 
 ```
 
+### Modify writable alias
+
+You can change the writable index by modifying the `is_write_index` field with `false` or `true` at any time.
+
+Only one index from the alias group can be writable at a time.
+
+```
+POST /_aliases
+{
+ "actions": [
+   {
+     "add": {
+       "index": "tcpdump-2020.01.30-1",
+       "alias": "tcpdump",
+       "is_write_index" : false
+     }
+   }
+ ]
+}
+```
+
 ### References
 
 [https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html]()
@@ -221,3 +242,4 @@ tcpdump tcpdump-2020.01.31-000003 - - - true
 [https://www.elastic.co/guide/en/elasticsearch/reference/7.5/indices-aliases.html#aliases-write-index
 ]()
 [https://www.elastic.co/guide/en/elasticsearch/reference/7.5/date-math-index-names.html]()
+tcpdump

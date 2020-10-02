@@ -5,6 +5,9 @@ date: 2018-02-19
 categories: linux docker
 ---
 
+Basic docker commands and tips.
+
+
 ## Run docker with ports and volumes
 
 	docker run --name=elk -p 5601:5601 -p 9200:9200 -p 5000:5000 -v /Users/jaci/tmp/elk-data/:/var/lib/elasticsearch -it myelk:v0

@@ -5,8 +5,6 @@ date: 2018-04-12
 categories: linux blockchain
 ---
 
-# Notes on the BlockChain
-
 Lets split some notes about learning to work with blockchain.
 
 ## My First Ethereum Network

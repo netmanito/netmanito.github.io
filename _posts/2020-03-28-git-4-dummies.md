@@ -5,7 +5,7 @@ date: 2020-03-28
 categories: linux tips
 ---
 
-# Git 4 dummies
+Git basics for dummies
 
 ### BEFORE YOU START TO READ, PLEASE SEE THIS WEB !!
 
