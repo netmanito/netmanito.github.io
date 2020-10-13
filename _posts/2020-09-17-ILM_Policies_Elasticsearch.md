@@ -106,10 +106,10 @@ PUT /%3Ctcpdump-%7Bnow%2Fd%7D-1%3E
 ##### Monthly index
 
 ```
-PUT /%3Cnmon-%7Bnow%2FM%7Byyyy.MM%7D%7D-1%3E
+PUT /%3Ctcpdump-%7Bnow%2FM%7Byyyy.MM%7D%7D-1%3E
 {
   "aliases": {
-    "nmon": {
+    "tcpdump": {
       "is_write_index":true
     }
   }
