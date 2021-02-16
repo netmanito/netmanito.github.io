@@ -96,16 +96,14 @@ docker rmi dockeruser/$docker-image:newversion
 
 ## CONNECT CONTAINERS
 
+Linking container between them
+
 ```
-docker run -d --name dblink training/postgres 
-docker run -d -P --name web --link dblink:dblink training/webapp python app.py
+$ docker run -d --name dblink training/postgres 
+$ docker run -d -P --name web --link dblink:dblink training/webapp python app.py
 ```
 
 Checkout if it works through name web
-
-```
-docker inspect -f "{{ .HostConfig.Links }}" web
-```
 
 ## ENVIRONMENT VARIABLES
 
@@ -203,3 +201,11 @@ If you receive the message cat:
 	/dev/net/tun: No such device the TUN/TAP 
 
 device was not successfully created: contact VPSLink Support for assistance.
+
+## disable restart-always docker 
+
+	docker update --restart=no my-container
+
+Use the below to disable ALL auto-restarting (daemon) containers.
+
+	docker update --restart=no $(docker ps -a -q)

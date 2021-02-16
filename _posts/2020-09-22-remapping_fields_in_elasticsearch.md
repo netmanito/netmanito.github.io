@@ -5,10 +5,6 @@ date: 2020-09-22
 categories: linux tips elasticsearch
 ---
 
-# Remapping fields in Elasticsearch
-
-
-
 
 * update the mapping fields with the new configuration
 * create new index with aliases and writable false

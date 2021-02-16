@@ -183,6 +183,25 @@ git@repohost:~/repo.git$ git instaweb --httpd=webrick --port=1234 --browser=fire
 git@repohost:~/repo.git$ git instaweb --stop
 ```
 
+#### Delete Branch
+
+Delete local branch by:
+
+```
+$ git branch -d <local-branch>
+```
+If you need to force, use
+
+```
+$ git branch -D <local-branch>
+```
+Deleting a remote branch looks like 
+
+```
+$ git push origin --delete <remote-branch-name>
+```
+
+
 #### References
 
 [https://training.github.com/kit/downloads/es/github-git-cheat-sheet.pdf](https://training.github.com/kit/downloads/es/github-git-cheat-sheet.pdf)
