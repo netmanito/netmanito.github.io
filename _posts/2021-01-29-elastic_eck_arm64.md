@@ -72,6 +72,17 @@ k3sup join --ip 192.168.21.180 --user pi --k3s-extra-args "--no-deploy traefik" 
 k3sup join --ip 192.168.21.181 --user pi --k3s-extra-args "--no-deploy-traefik" --server-user pi --server-ip 192.168.21.179 --server --k3s-version v1.19.1+k3s1
 ```
 
+Check the cluster availability
+
+```
+pi@pi4:~ $ kubectl get nodes
+NAME     STATUS   ROLES         AGE   VERSION
+node01   Ready    etcd,master   1h    v1.19.1+k3s1
+node02   Ready    etcd,master   1h    v1.19.1+k3s1
+pi4      Ready    etcd,master   1h    v1.19.1+k3s1
+```
+
+
 ## Build and deploy ECK
 
 You need docker and a registry to be able to build the needed files.
