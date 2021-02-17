@@ -2,7 +2,7 @@
 layout: post
 title: Python for dummies
 date: 2013-10-26 14:39
-categories: default update
+categories: updated tips python
 ---
 
 Virtualenv creates a completely separated sandbox for python and it's tools.

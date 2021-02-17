@@ -2,7 +2,7 @@
 layout: post
 title: timemachine_helpers
 date: 2012-12-10 11:35
-categories: default update
+categories: macos osx updated tips
 ---
 
 ![TimeMachine icon](/assets/images/time-machine.png)

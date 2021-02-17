@@ -2,7 +2,7 @@
 layout: post
 title: VirtualBox Manage
 date: 2014-01-24 14:07
-categories: default update
+categories: linux updated virtualbox
 ---
 
 **VBoxManage** is the command line way to manage your VirtualBox hosts.

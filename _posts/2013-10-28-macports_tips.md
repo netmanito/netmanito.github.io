@@ -2,7 +2,7 @@
 layout: post
 title: MacPorts Maintenance
 date: 2013-10-28 10:36
-categories: default update
+categories: macos osx updated
 ---
 
 To maintain you macports repository clean and without unused stuff, proceed with:

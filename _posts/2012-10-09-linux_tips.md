@@ -2,7 +2,7 @@
 layout: post
 title: Some Linux Tips
 date: 2012-10-09 13:23
-categories: default update
+categories: linux updated tips
 ---
 
 Update: 2014-02-06 17:46

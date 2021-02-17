@@ -2,7 +2,7 @@
 layout: post
 title: 19 ffmpeg commands for all needs
 date: 2014-04-29 13:15
-categories: linux update
+categories: linux updated tips ffmpeg
 ---
 
 Thanks to: Posted by jbj on Sep 22, 2008 in GNU/Linux, Operating systems at [catswhocode](http://www.catswhocode.com); and rescued from **archive.org** so I've them near when needed.

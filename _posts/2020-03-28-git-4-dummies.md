@@ -2,7 +2,7 @@
 layout: post
 title: Git 4 dummies
 date: 2020-03-28
-categories: linux tips
+categories: linux tips git
 ---
 
 Git basics for dummies

@@ -2,7 +2,7 @@
 layout: post
 title: simple_bits
 date: 2012-12-10 11:42
-categories: default update
+categories: macos osx updated tips
 ---
 
 This are little **bits** I frequently use and sometimes forgive.

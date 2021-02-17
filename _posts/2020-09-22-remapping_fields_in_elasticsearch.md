@@ -2,7 +2,7 @@
 layout: post
 title: Remapping fields in Elasticsearch
 date: 2020-09-22
-categories: linux tips elasticsearch
+categories: linux elk elasticsearch
 ---
 
 

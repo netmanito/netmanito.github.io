@@ -2,7 +2,7 @@
 layout: post
 title: Elastic ECK arm64 raspberry-pi cluster for fun and non-profit
 date: 2021-02-16
-categories: linux elastic k8s default rpi
+categories: linux elasticsearch k8s rpi
 ---
 
 **Disclaimer**: This POC was build for learning and experimenting purposes, don't put sensible or important data to work on it, might not be stable. 

@@ -2,7 +2,7 @@
 layout: post
 title: After a fresh minimal Debian install
 date: 2015-02-05 17:32
-categories: default update
+categories: linux updated debian
 ---
 
 I do this many times when I play with VM's (virtual machines); so I've to leave written all I normally do after a **Fresh minimal Debian Install** 
@@ -46,6 +46,8 @@ Add your user to this group
 Check login with your new user through **ssh** and *sudo* something.
 
 If so, you're done!! 
+
+#### Note: letting sudo without password is dangerous !!
 
 Once here, you've to decide if it's a server or a desktop machine, so you'll have to choice what you want to install.
 

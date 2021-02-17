@@ -2,7 +2,7 @@
 layout: post
 title: Lots of Linux Tips
 date: 2016-10-28
-categories: default elk
+categories: linux tips updated 
 ---
 
 Let's store more tips I've been collecting during last times.

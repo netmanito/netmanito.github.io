@@ -2,7 +2,7 @@
 layout: post
 title: Notes on Blockchain
 date: 2018-04-12
-categories: linux blockchain
+categories: linux blockchain ethereum
 ---
 
 Lets split some notes about learning to work with blockchain.

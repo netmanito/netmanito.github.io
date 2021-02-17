@@ -2,7 +2,7 @@
 layout: post
 title: ILM Policies Elasticsearch
 date: 2020-09-17
-categories: linux tips
+categories: linux elk elasticsearch 
 ---
 
 Basic howto on creating and understanding Elasticsearch ILM policies and index aliases

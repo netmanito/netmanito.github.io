@@ -2,7 +2,7 @@
 layout: post
 title: ELK on esteroids
 date: 2015-06-26
-categories: default elk
+categories: linux elk elasticsearch
 ---
 
 Ok, ELK is fashion now and you can find many documentation on how to install and configure ELK environments and more.
