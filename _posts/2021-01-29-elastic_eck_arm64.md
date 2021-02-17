@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Elastic ECK arm64 rasperry-pi cluster for fun and non-profit
+title: Elastic ECK arm64 raspberry-pi cluster for fun and non-profit
 date: 2021-02-16
 categories: linux elastic k8s default rpi
 ---
@@ -424,7 +424,6 @@ You can see that one Pod is in the process of being started:
 $ kubectl get pods --selector='elasticsearch.k8s.elastic.co/cluster-name=quickstart' 
 NAME                      READY   STATUS    RESTARTS   AGE
 quickstart-es-default-0   1/1     Running   0          79s
-
 ```
 
 #### Get the credentials.
@@ -432,7 +431,7 @@ quickstart-es-default-0   1/1     Running   0          79s
 A default user named elastic is automatically created with the password stored in a Kubernetes secret:
 
 ```
- PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
 ```
 
 #### Request the Elasticsearch endpoint.
