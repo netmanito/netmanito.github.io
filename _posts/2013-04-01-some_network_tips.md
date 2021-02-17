@@ -2,7 +2,7 @@
 layout: post
 title: Some Network Tips
 date: 2013-04-01 12:30
-categories: update
+categories: updated linux tips networking
 ---
 
 #### Iptables
@@ -45,6 +45,7 @@ Lets see some examples.
 
 Creating firewall rules can get you MAD, one of the easier way to create rules for your FW based on iptables is using [firehol](http://firehol.sourceforge.net/ "firehol homepage"). It has a very easy syntax to create rules as shown below.
 
+```
 root@raspi ~ # cat /etc/firehol/firehol.conf
 	
 	version 5
@@ -76,4 +77,5 @@ root@raspi ~ # cat /etc/firehol/firehol.conf
 
 	#router internet2dmz inface eth0 outface wlan0
 	#       route "http" accept
+```
 
