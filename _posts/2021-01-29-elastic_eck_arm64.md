@@ -5,7 +5,7 @@ date: 2021-02-16
 categories: linux elasticsearch k8s rpi
 ---
 
-**Disclaimer**: This POC was build for learning and experimenting purposes, don't put sensible or important data to work on it, might not be stable. 
+**Disclaimer**: This POC was built for learning and experimenting purposes, don't put sensible or important data to work on it, might not be stable. 
 
 Only Elasticsearch images are available for **ECK arm64**, this means, no other service/application from **ECK** will work like Kibana or apm-server. 
 
@@ -60,16 +60,16 @@ $ arkade get
 On your first master node where k3sup is installed we'll do the following to initialize the cluster
 
 ```
-k3sup install --ip 192.168.21.179 --user pi --k3s-extra-args "--cluster-init --no-deploy traefik" --cluster --k3s-version v1.19.1+k3s1
+k3sup install --ip 192.168.0.179 --user pi --k3s-extra-args "--cluster-init --no-deploy traefik" --cluster --tls-san 192.168.0.179 --k3s-version v1.19.5+k3s1
 
 ```
 Note the `--cluster-init` option to initialize the cluster and `--cluster` to make it master node.
 Once the first k3s node is running we'll install the 2 other ones.
 
 ```
-k3sup join --ip 192.168.21.180 --user pi --k3s-extra-args "--no-deploy traefik" --server-user pi --server-ip 192.168.21.179 --server --k3s-version v1.19.1+k3s1
+k3sup join --ip 192.168.0.181 --user pi --k3s-extra-args "--no-deploy traefik" --server-user pi --server-ip 192.168.0.179 --server --k3s-version v1.19.5+k3s1
 
-k3sup join --ip 192.168.21.181 --user pi --k3s-extra-args "--no-deploy-traefik" --server-user pi --server-ip 192.168.21.179 --server --k3s-version v1.19.1+k3s1
+k3sup join --ip 192.168.0.182 --user pi --k3s-extra-args "--no-deploy-traefik" --server-user pi --server-ip 192.168.0.179 --server --k3s-version v1.19.5+k3s1
 ```
 
 Check the cluster availability
@@ -81,6 +81,32 @@ node01   Ready    etcd,master   1h    v1.19.1+k3s1
 node02   Ready    etcd,master   1h    v1.19.1+k3s1
 pi4      Ready    etcd,master   1h    v1.19.1+k3s1
 ```
+
+#### Tip: restoring damaged cluster.
+
+When K3s is restored from backup, the old data directory will be moved to `/server/db/etcd-old/`. Then K3s will attempt to restore the snapshot by creating a new data directory, then starting etcd with a new K3s cluster with one etcd member.
+
+On Master node (where --cluster-init was runned), remove or backup `/server/db/etcd-old/` if already exists, otherwise it won't work.
+
+To restore the cluster from backup, run K3s with the `--cluster-reset` option, with the `--cluster-reset-restore-path` also given:
+
+```
+./k3s server \
+  --cluster-reset \
+  --cluster-reset-restore-path=<PATH-TO-SNAPSHOT-FILE>
+```
+
+**Result:**  A message in the logs says that K3s can be restarted without the flags. Start k3s again and should run successfully and be restored from the specified snapshot. Wait until node is ready again, on pi4 it can take a few minutes.
+
+```
+pi@pi4:~ $ kubectl get nodes
+NAME     STATUS     ROLES         AGE   VERSION
+node01   NotReady   etcd,master   12d   v1.19.1+k3s1
+node02   NotReady   etcd,master   12d   v1.19.1+k3s1
+pi4      Ready      etcd,master   12d   v1.19.1+k3s1
+```
+
+Once it's ready, remove `/var/lib/rancher/k3s/server/db` and start normaly the node.
 
 
 ## Build and deploy ECK
@@ -198,6 +224,68 @@ Perfect! we've our elastic node in k3s arm64, amazing job !!
 
 If everything is working, we can go ahead with the project.
 
+## Log in the cluster
+
+You can see that one Pod is in the process of being started:
+
+```
+$ kubectl get pods --selector='elasticsearch.k8s.elastic.co/cluster-name=quickstart' 
+NAME                      READY   STATUS    RESTARTS   AGE
+quickstart-es-default-0   1/1     Running   0          79s
+```
+
+#### Get the credentials.
+
+A default user named elastic is automatically created with the password stored in a Kubernetes secret:
+
+
+![eck_pwd](/assets/images/eck_pwd.png)
+
+```
+PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+```
+> something is  wrong when parsing this command with liquid, doesn't show the command correctly, must review, I've put a picture above.
+
+#### Request the Elasticsearch endpoint.
+
+If you haven't enabled the loadBalancer, you must port-forward the elastic service to access over it.
+
+Run
+
+```
+kubectl port-forward service/quickstart-es-http 9200
+```
+
+Then request localhost:
+
+```
+$ curl -u "elastic:$PASSWORD" -k "https://localhost:9200" 
+{
+  "name": "quickstart-es-default-0",
+  "cluster_name": "quickstart",
+  "cluster_uuid": "60XfH9-xSwqTOqArdPrcgQ",
+  "version": {
+    "number": "7.10.2",
+    "build_flavor": "default",
+    "build_type": "docker",
+    "build_hash": "747e1cc71def077253878a59143c1f785afa92b9",
+    "build_date": "2021-01-13T04:42:47.157277Z",
+    "build_snapshot": false,
+    "lucene_version": "8.7.0",
+    "minimum_wire_compatibility_version": "6.8.0",
+    "minimum_index_compatibility_version": "6.0.0-beta1"
+  },
+  "tagline": "You Know, for Search"
+}
+```
+
+#### Access the logs for that Pod:
+
+```
+kubectl logs -f quickstart-es-default-0
+```
+
+
 ## ECK advanced mode
 
 Destroy the node with `kubectl delete -f quicstart-es.yml` and continue to create our infrastructure.
@@ -222,13 +310,20 @@ Lets go a bit further now. ECK works with [VolumeClaimTemplates](https://www.ela
 NFS storage is the easiest way to create, but we have to configure it as a StorageClass, and that's a bit more tricky. 
 I've followed this [guide](https://levelup.gitconnected.com/how-to-use-nfs-in-kubernetes-cluster-storage-class-ed1179a83817) to create it on my cluster and have to say thanks for the info.
 
-Elasticsearch does not performe well with NFS volumes, this aproach is only to learn create a **storageClass** on Kubernetes that **ECK** could use. We can live with poor performance for the moment.
+Elasticsearch does not performe well with NFS volumes, this aproach is only to learn create a **storageClass** on Kubernetes that **ECK** could use. We can live with poor performance for that project.
 
 Clone the repo [https://github.com/fabiofernandesx/k8s-volumes](https://github.com/fabiofernandesx/k8s-volumes) on your master pi node and cd to `k8s-volumes/yml/StorageClass`.
 
-You'll need to make some changes in order to match the names ECK expects to find.
+You'll need to make some changes in order to match the names ECK expects to find if you want the long way.
 
-These are the files used on our deployment.
+TL-DR, you can download a full file with all configured from [here](https://raw.githubusercontent.com/netmanito/eck-arm64/main/StorageClass/eck-nfs-storageclass.yml), modify the nfs server parameters and run directly
+
+```
+kubectl apply -f eck-nfs-storageclass.yml
+```
+and jump to **Deploy 3 node cluster** section.
+
+These are the files used on our deployment in the long way process.
 
 ```
  service-account.yml
@@ -293,6 +388,8 @@ elasticsearch-data                           Pending                            
 ```
 
 Hurray!! we now have a StorageClass that will be auto discovered by ECK service.
+
+### Deploy a 3 elastic node cluster with NFS StorageClass
 
 Lets try now to create a 3 node cluster wich will use the external storage we've configured.
 
@@ -416,63 +513,10 @@ quickstart-es-http   LoadBalancer   10.43.137.105   192.168.0.181   9200:30945/T
 ```
 The service will balance between all the IP's of the nodes in the k3s cluster.
 
-### Log in the cluster
+Now you can query any of your 3 nodes directly and Elasticsearch will respond with no issue on `https://anyclusternodename:9200`.
 
-You can see that one Pod is in the process of being started:
-
-```
-$ kubectl get pods --selector='elasticsearch.k8s.elastic.co/cluster-name=quickstart' 
-NAME                      READY   STATUS    RESTARTS   AGE
-quickstart-es-default-0   1/1     Running   0          79s
-```
-
-#### Get the credentials.
-
-A default user named elastic is automatically created with the password stored in a Kubernetes secret:
-
-```
-PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
-```
-
-#### Request the Elasticsearch endpoint.
-
-If you haven't enabled the loadBalancer, you must port-forward the elastic service to access over it.
-
-Run
-
-```
-kubectl port-forward service/quickstart-es-http 9200
-```
-
-Then request localhost:
-
-```
-$ curl -u "elastic:$PASSWORD" -k "https://localhost:9200" 
-{
-  "name": "quickstart-es-default-0",
-  "cluster_name": "quickstart",
-  "cluster_uuid": "60XfH9-xSwqTOqArdPrcgQ",
-  "version": {
-    "number": "7.10.2",
-    "build_flavor": "default",
-    "build_type": "docker",
-    "build_hash": "747e1cc71def077253878a59143c1f785afa92b9",
-    "build_date": "2021-01-13T04:42:47.157277Z",
-    "build_snapshot": false,
-    "lucene_version": "8.7.0",
-    "minimum_wire_compatibility_version": "6.8.0",
-    "minimum_index_compatibility_version": "6.0.0-beta1"
-  },
-  "tagline": "You Know, for Search"
-}
-```
-
-#### Access the logs for that Pod:
-
-```
-kubectl logs -f quickstart-es-default-0
-```
-
+That's it, we have a fully functional Kubernetes cluster with Elasticsearch ECK, where we can deploy elasticsearch clusters. 
+I'll try to go further with this project if I've time for.
 
 ## TODO 
 
@@ -482,6 +526,8 @@ kubectl logs -f quickstart-es-default-0
 
 
 ## References: 
+
+Deploy files are available [here](https://github.com/netmanito/eck-arm64).
 
 [https://blog.alexellis.io/multi-master-ha-kubernetes-in-5-minutes/](https://blog.alexellis.io/multi-master-ha-kubernetes-in-5-minutes/)
 

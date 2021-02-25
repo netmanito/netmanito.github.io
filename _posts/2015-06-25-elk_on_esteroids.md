@@ -205,20 +205,24 @@ The transport mechanism is completely asynchronous in nature, meaning that there
 
 *	ES
 
-https://www.elastic.co/guide/en/elasticsearch/guide/current/root-object.html
+[https://www.elastic.co/guide/en/elasticsearch/guide/current/root-object.html](https://www.elastic.co/guide/en/elasticsearch/guide/current/root-object.html)
 
-https://blog.codecentric.de/en/2014/05/elasticsearch-indexing-performance-cheatsheet/
+[https://blog.codecentric.de/en/2014/05/elasticsearch-indexing-performance-cheatsheet/](https://blog.codecentric.de/en/2014/05/elasticsearch-indexing-performance-cheatsheet/)
 
-https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing
+[https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing](https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing)
+
+[https://elasticsearch-cheatsheet.jolicode.com/
+](https://elasticsearch-cheatsheet.jolicode.com/)
 
 *	Kibana
 
-https://www.elastic.co/guide/en/kibana/3.0/queries.html
+[https://www.elastic.co/guide/en/kibana/3.0/queries.html](https://www.elastic.co/guide/en/kibana/3.0/queries.html)
 
-https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query.html
+[https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query.html](https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query.html)
 
-https://www.mjt.me.uk/posts/kibana-101/
+[https://www.mjt.me.uk/posts/kibana-101/](https://www.mjt.me.uk/posts/kibana-101/)
 
 *	ELK
 
-https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7
+[https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-4-on-centos-7)
+
