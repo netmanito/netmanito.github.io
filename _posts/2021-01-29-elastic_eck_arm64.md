@@ -84,29 +84,9 @@ pi4      Ready    etcd,master   1h    v1.19.1+k3s1
 
 #### Tip: restoring damaged cluster.
 
-When K3s is restored from backup, the old data directory will be moved to `/server/db/etcd-old/`. Then K3s will attempt to restore the snapshot by creating a new data directory, then starting etcd with a new K3s cluster with one etcd member.
+If a k3s node fails from the cluster, it'll probably wont come back again correctly, and wont be able to join again the cluster, at least the versions of k3s I've tried.
 
-On Master node (where --cluster-init was runned), remove or backup `/server/db/etcd-old/` if already exists, otherwise it won't work.
-
-To restore the cluster from backup, run K3s with the `--cluster-reset` option, with the `--cluster-reset-restore-path` also given:
-
-```
-./k3s server \
-  --cluster-reset \
-  --cluster-reset-restore-path=<PATH-TO-SNAPSHOT-FILE>
-```
-
-**Result:**  A message in the logs says that K3s can be restarted without the flags. Start k3s again and should run successfully and be restored from the specified snapshot. Wait until node is ready again, on pi4 it can take a few minutes.
-
-```
-pi@pi4:~ $ kubectl get nodes
-NAME     STATUS     ROLES         AGE   VERSION
-node01   NotReady   etcd,master   12d   v1.19.1+k3s1
-node02   NotReady   etcd,master   12d   v1.19.1+k3s1
-pi4      Ready      etcd,master   12d   v1.19.1+k3s1
-```
-
-Once it's ready, remove `/var/lib/rancher/k3s/server/db` and start normaly the node.
+Please follow this issue to recover your node [https://github.com/k3s-io/k3s/issues/2732](https://github.com/k3s-io/k3s/issues/2732) in case it fails to join after a reboot or failure.
 
 
 ## Build and deploy ECK
