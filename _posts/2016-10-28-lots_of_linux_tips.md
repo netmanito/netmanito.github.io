@@ -397,6 +397,9 @@ From here it works like any normal fsck.
   
 	mysql> grant all on database.* to dbuser@localhost identified by 'password';
 
+#### full access from anywhere
+
+	 GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
   
 ### Give password to user
   
