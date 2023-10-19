@@ -219,12 +219,15 @@ quickstart-es-default-0   1/1     Running   0          79s
 A default user named elastic is automatically created with the password stored in a Kubernetes secret:
 
 
-![eck_pwd](/assets/images/eck_pwd.png)
+[//]: # ![eck_pwd](/assets/images/eck_pwd.png)
 
+{% raw %}
 ```
-PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{.data.elastic | base64decode}}')
+PASSWORD=$(kubectl get secret quickstart-es-elastic-user -o go-template='{{ .data.elastic | base64decode }}')
 ```
-> something is  wrong when parsing this command with liquid, doesn't show the command correctly, must review, I've put a picture above.
+{% endraw %}
+
+[//]: # > something is  wrong when parsing this command with liquid, doesn't show the command correctly, must review, I've put a picture above.
 
 #### Request the Elasticsearch endpoint.
 
